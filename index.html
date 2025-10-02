@@ -1,108 +1,252 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta de Amor</title>
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffb6c1; /* Fondo rosado */
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* Evita scroll por el movimiento del botón */
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi novia? 💗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  .carta {
-    background-color: #ff69b4; /* Carta más intensa */
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative;
-    width: 350px;
-  }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffb3d9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-  .carta h1 {
-    color: white;
-    margin-bottom: 40px;
-  }
+        /* Corazones flotantes de fondo */
+        .heart-bg {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+        }
 
-  #mensajeAmor {
-    margin-top: 20px;
-    font-size: 20px;
-    color: white;
-    display: none;
-  }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
 
-  .botones {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-  }
+        .heart-bg:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .heart-bg:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .heart-bg:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 2s; }
+        .heart-bg:nth-child(4) { bottom: 25%; right: 10%; animation-delay: 1.5s; }
+        .heart-bg:nth-child(5) { top: 50%; left: 5%; animation-delay: 0.5s; }
+        .heart-bg:nth-child(6) { top: 60%; right: 5%; animation-delay: 2.5s; }
 
-  button {
-    padding: 10px 25px;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative; /* Para que el No pueda moverse dentro de la carta */
-  }
+        .container {
+            background: linear-gradient(145deg, #ff69b4, #ff85c1);
+            padding: 60px 80px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: slideIn 0.8s ease-out;
+        }
 
-  #si {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-  }
+        @keyframes slideIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-  #no {
-    background-color: #f44336; /* Rojo */
-    color: white;
-  }
+        h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
 
-</style>
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            height: 80px;
+            padding: 0 40px;
+        }
+
+        button {
+            padding: 18px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #siBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #siBtn:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        #siBtn:active {
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        .mensaje {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: aparecer 0.5s ease-out;
+        }
+
+        @keyframes aparecer {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .mensaje h2 {
+            color: #ff69b4;
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .corazones-celebracion {
+            position: fixed;
+            font-size: 40px;
+            pointer-events: none;
+            animation: caer 3s linear;
+            z-index: 1000;
+        }
+
+        @keyframes caer {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Corazones de fondo -->
+    <div class="heart-bg">💗</div>
+    <div class="heart-bg">💖</div>
+    <div class="heart-bg">💕</div>
+    <div class="heart-bg">💗</div>
+    <div class="heart-bg">💖</div>
+    <div class="heart-bg">💕</div>
 
-<div class="carta" id="carta">
-  <h1>¿Quieres ser mi novia?</h1>
-  <div class="botones">
-    <button id="si">Sí</button>
-    <button id="no">No</button>
-  </div>
-  <div id="mensajeAmor">sabia que ibas a decir que si
-</div>
+    <div class="container">
+        <h1>¿Quieres ser mi novia?</h1>
+        <div class="buttons">
+            <button id="siBtn">Sí</button>
+            <button id="noBtn">No</button>
+        </div>
+        <div class="mensaje" id="mensaje">
+            <h2>¡Sabía que escogerías la mejor opción! 💗</h2>
+        </div>
+    </div>
 
-<script>
-  const siBtn = document.getElementById('si');
-  const noBtn = document.getElementById('no');
-  const mensaje = document.getElementById('mensajeAmor');
-  const carta = document.getElementById('carta');
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const siBtn = document.getElementById('siBtn');
+        const mensaje = document.getElementById('mensaje');
+        const container = document.querySelector('.container');
 
-  // Botón "Sí" muestra mensaje
-  siBtn.addEventListener('click', () => {
-    mensaje.style.display = 'block';
-  });
+        // Función para mover el botón "No" aleatoriamente
+        function moverBotonNo() {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Calcular posiciones aleatorias dentro del contenedor
+            const maxX = containerRect.width - btnRect.width - 40;
+            const maxY = containerRect.height - btnRect.height - 40;
+            
+            const randomX = Math.random() * maxX - (maxX / 2);
+            const randomY = Math.random() * maxY - (maxY / 2);
+            
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
 
-  // Botón "No" se mueve a posición aleatoria dentro de la carta
-  noBtn.addEventListener('mouseover', () => {
-    const cartaRect = carta.getBoundingClientRect();
-    const maxX = cartaRect.width - noBtn.offsetWidth;
-    const maxY = cartaRect.height - noBtn.offsetHeight - 60; // dejando espacio arriba
+        // Mover el botón cuando el mouse se acerque (desktop)
+        noBtn.addEventListener('mouseenter', moverBotonNo);
+        noBtn.addEventListener('mouseover', moverBotonNo);
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+        // Mover el botón cuando se intente tocar (móvil)
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moverBotonNo();
+        });
 
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = randomX + 'px';
-    noBtn.style.top = randomY + 'px';
-  });
-</script>
+        // Prevenir el click
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moverBotonNo();
+        });
 
+        // Función para crear corazones cayendo
+        function crearCorazones() {
+            const corazones = ['💗', '💖', '💕', '💝', '💓'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const corazon = document.createElement('div');
+                    corazon.className = 'corazones-celebracion';
+                    corazon.textContent = corazones[Math.floor(Math.random() * corazones.length)];
+                    corazon.style.left = Math.random() * 100 + '%';
+                    corazon.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(corazon);
+                    
+                    setTimeout(() => corazon.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+        // Acción del botón "Sí"
+        siBtn.addEventListener('click', function() {
+            mensaje.style.display = 'block';
+            siBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            crearCorazones();
+        });
+    </script>
 </body>
 </html>
