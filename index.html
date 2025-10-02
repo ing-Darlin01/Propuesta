@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta de Amor</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffb6c1; /* Fondo rosado */
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Evita scroll por el movimiento del botón */
+  }
+
+  .carta {
+    background-color: #ff69b4; /* Carta más intensa */
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    width: 350px;
+  }
+
+  .carta h1 {
+    color: white;
+    margin-bottom: 40px;
+  }
+
+  #mensajeAmor {
+    margin-top: 20px;
+    font-size: 20px;
+    color: white;
+    display: none;
+  }
+
+  .botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+  }
+
+  button {
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative; /* Para que el No pueda moverse dentro de la carta */
+  }
+
+  #si {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+  }
+
+  #no {
+    background-color: #f44336; /* Rojo */
+    color: white;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="carta" id="carta">
+  <h1>¿Quieres ser mi novia?</h1>
+  <div class="botones">
+    <button id="si">Sí</button>
+    <button id="no">No</button>
+  </div>
+  <div id="mensajeAmor">sabia que ibas a decir que si
+</div>
+
+<script>
+  const siBtn = document.getElementById('si');
+  const noBtn = document.getElementById('no');
+  const mensaje = document.getElementById('mensajeAmor');
+  const carta = document.getElementById('carta');
+
+  // Botón "Sí" muestra mensaje
+  siBtn.addEventListener('click', () => {
+    mensaje.style.display = 'block';
+  });
+
+  // Botón "No" se mueve a posición aleatoria dentro de la carta
+  noBtn.addEventListener('mouseover', () => {
+    const cartaRect = carta.getBoundingClientRect();
+    const maxX = cartaRect.width - noBtn.offsetWidth;
+    const maxY = cartaRect.height - noBtn.offsetHeight - 60; // dejando espacio arriba
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+  });
+</script>
+
+</body>
+</html>
